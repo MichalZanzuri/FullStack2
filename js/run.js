@@ -1,5 +1,3 @@
-
-
 const player = document.getElementById("player");
 const game = document.getElementById("game");
 const scoreSpan = document.getElementById("score");

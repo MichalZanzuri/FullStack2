@@ -35,4 +35,65 @@ body{
   gap: 16px;
   grid-auto-rows: 400px;
 }
+.hidden {
+  display: none;
+}
+
+
+#coming-soon-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#coming-soon-modal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  animation: pop 0.3s ease;
+}
+
+#coming-soon-modal img {
+  width: 250px;
+  height: auto;
+}
+#coming-soon-modal.hidden {
+  display: none;
+}
+
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.game-item-nolink {
+  cursor: not-allowed;
+}
+.game-item,
+.game-item-nolink {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.game-item:hover,
+.game-item-nolink:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.game-item:active,
+.game-item-nolink:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.game-item {
+  cursor: pointer;
+}
 
