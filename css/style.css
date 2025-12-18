@@ -1,0 +1,16 @@
+#back-button {
+  position: fixed;        
+  top: 20px;             
+  left: 20px;           
+  z-index: 1000;        
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+#back-button:hover {
+  background-color: #f0f0f0;
+}
