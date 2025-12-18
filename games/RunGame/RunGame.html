@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campus Run</title>
+<link rel="stylesheet" href="../../css/run.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div id="lives">
+  <span class="heart">❤️</span>
+  <span class="heart">❤️</span>
+  <span class="heart">❤️</span>
+  <span class="heart">❤️</span>
+  <span class="heart">❤️</span>
+</div>
+
+<div id="game-over" class="hidden">
+  <div class="game-over-box">
+    <h2>Game Over 🥺</h2>
+    <p>Your score: <span id="final-score"></span></p>
+    <button onclick="location.reload()">Restart</button>
+  </div>
+</div>
+<div id="hud">
+  <h1 >Student Run 🎓</h1>
+  <p >Score: <span id="score">0</span></p>
+</div>
+
+<div id="game">
+  <div id="sky"></div>
+  <div id="grass"></div>
+  <div id="player"></div>
+  <div class="obstacle"></div>
+</div>
+  <script src="../../js/run.js"></script>
+
+</body>
+</html>
