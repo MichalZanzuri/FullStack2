@@ -13,4 +13,12 @@
 }
 #back-button:hover {
   background-color: #f0f0f0;
+  border-radius: 50%;
+  border: 2px solid #ccc;
 }
+body{
+    background-color: rgb(196, 222, 243);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+

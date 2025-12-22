@@ -2,12 +2,6 @@
   box-sizing: border-box;
   max-width: 100%;
 }
-
-body{
-    background-color: rgb(196, 222, 243);
-    overflow-x: hidden;
-    overflow-y: auto;
-}
 .game-item,
 .game-item-nolink {
   border: 2px solid #ffffff;
