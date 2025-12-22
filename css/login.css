@@ -1,84 +1,79 @@
+/* css/login.css */
+
 body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../image/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../image/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .login-container {
-  position: relative;
-  text-align: center;
-  width: 450px;
-  padding: 40px 30px 30px;
-  background-color: #bdebd6;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+    width: 450px;
+    padding: 40px 30px 30px;
+    background-color: #bdebd6;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.login-container h1 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #333;
 }
 
 .login-container input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-.login-container h1 {
-  margin-bottom: 25px;
-  font-size: 24px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
-.login-container button#loginButton {
-  width: 100%;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: #56ffa8;
-  color: rgb(2, 0, 0);
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
+.btn-main {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #56ffa8;
+    color: rgb(2, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    margin-top: 10px;
 }
 
-.login-container button#loginButton:hover {
-  background-color: #badaa6;
+.btn-main:hover {
+    background-color: #badaa6;
 }
 
-#newUserButton {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 6px 14px;
-  font-size: 20px;
-  font-weight: 600;
-  background-color: #56ffa8;
-  color: #000000;
-  border: 1.5px solid #81ecb5;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-#newUserButton:hover {
-  background-color: #badaa6;
+.toggle-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
 }
 
-.login-container button#signUpButton {
-   width: 100%;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: #56ffa8;
-  color: rgb(2, 0, 0);
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
+.toggle-link a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
 }
-#signUpButton:hover {
-  background-color: #badaa6;
+
+.toggle-link a:hover {
+    color: #56ffa8;
 }

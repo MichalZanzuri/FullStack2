@@ -8,14 +8,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-      <div class="login-container">
-        <h1>SIGN UP</h1>
-        <input type="text" id="newUsername" placeholder="Username">
-        <input type="password" id="newPassword" placeholder="Password">
-        <button id="signUpButton" >Sign Up</button>
+
+  <div class="main-wrapper">
+      
+      <div id="login-box" class="login-container">
+        <h1>LOGIN</h1>
+        <input type="text" id="loginUsername" placeholder="Your Username">
+        <input type="password" id="loginPassword" placeholder="Your Password">
+        
+        <button id="loginButton" class="btn-main">Login</button>
+        
+        <div class="toggle-link">
+            Don't have an account? 
+            <a href="#" onclick="toggleForms()">Sign Up Here</a>
+        </div>
       </div>
 
+      <div id="register-box" class="login-container hidden">
+        <h1>SIGN UP</h1>
+        <input type="text" id="newUsername" placeholder="Choose Username">
+        <input type="password" id="newPassword" placeholder="Choose Password">
+        
+        <button id="signUpButton" class="btn-main">Create Account</button>
+        
+        <div class="toggle-link">
+            Already have an account? 
+            <a href="#" onclick="toggleForms()">Login Here</a>
+        </div>
+      </div>
 
+  </div>
+
+  <script src="../../js/userManager.js"></script>
   <script src="js/sign.js"></script>
 </body>
 </html>

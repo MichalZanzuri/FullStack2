@@ -1,19 +1,40 @@
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    background-image: url('../../image/bg_memory.jpg');
+    
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Varela Round', sans-serif;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+}
+
+#back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .game-container {
     text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border: 2px solid white;
 }
 
 h1 {
@@ -21,7 +42,6 @@ h1 {
     color: #333;
 }
 
-/* סרגל ניקוד */
 .score-panel {
     font-size: 1.2rem;
     margin-bottom: 15px;
@@ -31,15 +51,13 @@ h1 {
     display: inline-block;
 }
 
-/* הגדרת הרשת של הקלפים */
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 80px); /* 4 עמודות */
+    grid-template-columns: repeat(4, 80px);
     grid-gap: 10px;
     margin: 20px auto;
 }
 
-/* עיצוב הקלף */
 .card {
     width: 80px;
     height: 80px;
@@ -52,14 +70,14 @@ h1 {
     font-size: 35px;
     color: white;
     transition: transform 0.2s, background-color 0.2s; 
-    user-select: none; /* מונע סימון טקסט */
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .card:hover {
     transform: scale(1.05);
 }
 
-/* כשהקלף הפוך (נראה את התוכן) */
 .card.flipped {
     background-color: #ecf0f1;
     color: #2c3e50;
@@ -67,9 +85,8 @@ h1 {
     transform: rotateY(180deg);
 }
 
-/* כשהקלף נמצא כזוג תואם */
 .card.matched {
-    background-color: #2ecc71; /* ירוק */
+    background-color: #2ecc71;
     animation: pulse 0.5s;
     cursor: default;
 }
@@ -82,6 +99,7 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .restart-btn:hover {
@@ -94,7 +112,6 @@ h1 {
     100% { transform: scale(1); }
 }
 
-/* --- חלון ניצחון (Modal) --- */
 .modal {
     position: fixed;
     top: 0;
@@ -119,6 +136,7 @@ h1 {
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     max-width: 300px;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .modal-content button {
@@ -130,4 +148,5 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    font-family: 'Varela Round', sans-serif;
 }
