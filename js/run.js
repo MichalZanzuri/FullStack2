@@ -9,7 +9,6 @@ const runImages = [
 const jumpImage = "../../image/jump.png";
 const fallImage = "../../image/fall.png";
 
-
 const obstacles = [
   { image: "../../image/bag.png", type: "ground" },
   { image: "../../image/book.png", type: "ground" },
@@ -143,14 +142,11 @@ function createObstacle() {
 }
 
 
-
-
 function moveObstacle(obstacle) {
   let x = obstacle.offsetLeft;
   const speed = obstacleSpeed;
 
   const interval = setInterval(() => {
-      console.log("x:", x, "playerLeft:", player.offsetLeft, "obstacleRight:", x + obstacle.offsetWidth);
     //move obstacle
     x -= speed;
     obstacle.style.left = x + "px";
@@ -165,23 +161,22 @@ function moveObstacle(obstacle) {
       obstacle.remove();
       return;
     }
-//if passed obstacle - increase score
-if (obstacle.dataset.passed === "false") {
+    
+    //if passed obstacle - increase score
+    if (obstacle.dataset.passed === "false") {
 
-  const obstacleRight = x + obstacle.offsetWidth;
-  const playerLeft = player.offsetLeft;
+      const obstacleRight = x + obstacle.offsetWidth;
+      const playerLeft = player.offsetLeft;
 
-  if (obstacleRight < playerLeft) {
-    obstacle.dataset.passed = "true";
-    score += 10;
-    updateScore();
-  }
-}
+      if (obstacleRight < playerLeft) {
+        obstacle.dataset.passed = "true";
+        score += 10;
+        
+        updateScoreDisplay(); 
+      }
+    }
 
-
-
-
-if (x < -obstacle.offsetWidth) {
+    if (x < -obstacle.offsetWidth) {
       clearInterval(interval);
       obstacle.remove();
     }
@@ -205,9 +200,7 @@ const nextTime = Math.max(
 spawnObstacle();
 
 
-
-
-function updateScore() {
+function updateScoreDisplay() {
   scoreSpan.innerText = score;
 }
 
@@ -216,7 +209,8 @@ function handleHit() {
 
   lives--;
   score -= 10;
-  updateScore();
+  
+  updateScoreDisplay();
 
   hearts[lives].classList.add("lost");
 
@@ -247,9 +241,16 @@ function endGame() {
 
   document.getElementById("final-score").innerText = score;
   document.getElementById("game-over").classList.remove("hidden");
-
   document.getElementById("hud").classList.add("hidden");
-
   game.classList.remove("running");
-}
 
+  // --- שמירת הניקוד ---
+  // עכשיו שהפונקציה המקומית שינתה שם, הקריאה הזו תלך סוף סוף לקובץ userManager!
+  console.log("Game Over! Saving score to database...");
+  
+  if (typeof updateScore === 'function') {
+      updateScore('run', score); 
+  } else {
+      console.error("Global updateScore function not found!");
+  }
+}

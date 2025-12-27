@@ -109,6 +109,15 @@ function resetBoard() {
 function gameWon() {
     finalMovesElement.innerText = moves;
     winModal.classList.remove('hidden');
+//saving score
+    let score = Math.max(0, 100 - moves);
+
+    if (typeof updateScore === 'function') {
+        updateScore('memory', score);
+        console.log("Memory score saved:", score);
+    } else {
+        console.error("userManager.js not found!");
+    }
 }
 
 initGame();

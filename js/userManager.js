@@ -8,7 +8,7 @@ function getAllUsers() {
     return users ? JSON.parse(users) : [];
 }
 
-//Sign Up
+// Sign Up
 function registerUser(username, password) {
     const users = getAllUsers();
     
@@ -32,12 +32,15 @@ function registerUser(username, password) {
     return true;
 }
 
-//Login
+// Login
 function loginUser(username, password) {
     const users = getAllUsers();
     const foundUser = users.find(user => user.username === username && user.password === password);
 
     if (foundUser) {
+        if (!foundUser.scores) {
+            foundUser.scores = { memory: 0, run: 0 };
+        }
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(foundUser));
         window.location.href = '../../dashboard.html';
         return true;
@@ -54,14 +57,25 @@ function getCurrentUser() {
 
 function updateScore(gameName, newScore) {
     const currentUser = getCurrentUser();
+    
     if (!currentUser) return;
 
-    if (newScore > (currentUser.scores[gameName] || 0)) {
+    if (!currentUser.scores) {
+        currentUser.scores = {};
+    }
+
+    const currentBest = currentUser.scores[gameName] || 0;
+
+    if (newScore > currentBest) {
+        
+        //update score in memory and local storage
         currentUser.scores[gameName] = newScore;
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser));
 
+        //update score in users list
         const users = getAllUsers();
         const userIndex = users.findIndex(u => u.username === currentUser.username);
+        
         if (userIndex !== -1) {
             users[userIndex] = currentUser;
             localStorage.setItem(USERS_KEY, JSON.stringify(users));
