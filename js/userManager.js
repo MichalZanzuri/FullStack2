@@ -1,9 +1,9 @@
-// js/userManager.js
 
 const USERS_KEY = 'campus_run_users';
 const CURRENT_USER_KEY = 'campus_run_current_user';
 const MAX_ATTEMPTS = 3; // num of tries
 const BLOCK_TIME_MS = 30 * 1000; // block time
+const LEADERBOARD_KEY = 'campus_run_leaderboards';
 
 function getAllUsers() {
     const users = localStorage.getItem(USERS_KEY);
@@ -109,7 +109,7 @@ function updateScore(gameName, newScore) {
 
     const currentBest = currentUser.scores[gameName] || 0;
 
-    if (newScore > currentBest) {
+    if (newScore > currentBest && newScore > 0) {
         currentUser.scores[gameName] = newScore;
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser));
 
@@ -121,4 +121,43 @@ function updateScore(gameName, newScore) {
             saveUsers(users);
         }
     }
+//global highscore leaderboard update
+const leaderboards = getLeaderboards();
+
+// Check if the user already exists in the leaderboard
+const existingIndex = leaderboards[gameName].findIndex(
+    entry => entry.username === currentUser.username
+);
+
+if (existingIndex !== -1) {
+    //if user exists, update score if newScore is higher
+    if (newScore > leaderboards[gameName][existingIndex].score) {
+        leaderboards[gameName][existingIndex].score = newScore;
+    }
+} else {
+    // Add new user to leaderboard
+    leaderboards[gameName].push({
+        username: currentUser.username,
+        score: newScore
+    });
+}
+
+// Sort leaderboard 
+leaderboards[gameName].sort((a, b) => b.score - a.score);
+
+// Keep only top 3 scores
+leaderboards[gameName] = leaderboards[gameName].slice(0, 3);
+
+// Save updated leaderboard
+localStorage.setItem(
+    LEADERBOARD_KEY,
+    JSON.stringify(leaderboards)
+);
+
+    
+
+}
+function getLeaderboards() {
+    const data = localStorage.getItem(LEADERBOARD_KEY);
+    return data ? JSON.parse(data) : { run: [], memory: [] };
 }
