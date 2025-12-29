@@ -1,4 +1,3 @@
-// js/userManager.js
 
 const USERS_KEY = 'campus_run_users';
 const CURRENT_USER_KEY = 'campus_run_current_user';
@@ -59,7 +58,7 @@ function loginUser(username, password) {
     }
 
     if (user.password === password) {
-        // Reset counters because the user logged in successfully
+        // Reset counters because successful login
         user.loginAttempts = 0;
         user.blockUntil = null;
         
@@ -69,7 +68,7 @@ function loginUser(username, password) {
 
         if (!user.scores) user.scores = { memory: 0, run: 0 };
 
-        // Login
+        // Set current user in LocalStorage
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
         window.location.href = '../../dashboard.html';
         return true;
@@ -87,7 +86,7 @@ function loginUser(username, password) {
             message += ` You have ${MAX_ATTEMPTS - user.loginAttempts} attempts left.`;
         }
 
-        // Must save the updated user (with the failed attempts counter) in LocalStorage
+        // save the updated user (with the failed attempts counter) in LocalStorage
         users[userIndex] = user;
         saveUsers(users);
         

@@ -1,4 +1,3 @@
-// js/sign.js
 
 function toggleForms() {
     const loginForm = document.getElementById('login-form');
