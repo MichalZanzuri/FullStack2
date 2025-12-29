@@ -12,12 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nameElement) {
         nameElement.innerText = user.username;
     }
+    loadLeaderboards();
 
-    //update scores
-    if (user.scores) {
-        document.getElementById('score-run').innerText = user.scores.run || 0;
-        document.getElementById('score-memory').innerText = user.scores.memory || 0;
-    }
+   
 });
 
 function logout() {
@@ -32,4 +29,28 @@ function showComingSoon() {
     setTimeout(() => {
       modal.classList.add("hidden");
     }, 800);
+}
+function loadLeaderboards() {
+    const leaderboards = getLeaderboards();
+
+    renderLeaderboard('run', leaderboards.run);
+    renderLeaderboard('memory', leaderboards.memory);
+}
+
+function renderLeaderboard(gameType, list) {
+    const container = document.getElementById(`${gameType}-leaderboard`);
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (!list || list.length === 0) {
+        container.innerHTML = '<li>No scores yet</li>';
+        return;
+    }
+
+    list.forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.username} : ${entry.score}`;
+        container.appendChild(li);
+    });
 }

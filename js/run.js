@@ -244,8 +244,6 @@ function endGame() {
   document.getElementById("hud").classList.add("hidden");
   game.classList.remove("running");
 
-  // --- שמירת הניקוד ---
-  // עכשיו שהפונקציה המקומית שינתה שם, הקריאה הזו תלך סוף סוף לקובץ userManager!
   console.log("Game Over! Saving score to database...");
   
   if (typeof updateScore === 'function') {
