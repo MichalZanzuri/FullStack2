@@ -2,10 +2,16 @@
 
 const USERS_KEY = 'campus_run_users';
 const CURRENT_USER_KEY = 'campus_run_current_user';
+const MAX_ATTEMPTS = 3; // num of tries
+const BLOCK_TIME_MS = 30 * 1000; // block time
 
 function getAllUsers() {
     const users = localStorage.getItem(USERS_KEY);
     return users ? JSON.parse(users) : [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
 // Sign Up
@@ -16,36 +22,76 @@ function registerUser(username, password) {
         alert("Username is taken! Try another name");
         return false;
     }
+    
     const newUser = {
         username: username,
         password: password,
-        scores: {
-            memory: 0,
-            run: 0
-        }
+        scores: { memory: 0, run: 0 },
+        loginAttempts: 0, 
+        blockUntil: null 
     };
 
     users.push(newUser);
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    saveUsers(users);
     
-    loginUser(username, password); 
+    // Auto-login after registration
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(newUser));
+    window.location.href = '../../dashboard.html';
     return true;
 }
 
 // Login
 function loginUser(username, password) {
     const users = getAllUsers();
-    const foundUser = users.find(user => user.username === username && user.password === password);
+    const userIndex = users.findIndex(u => u.username === username);
+    
+    if (userIndex === -1) {
+        alert("User not found.");
+        return false;
+    }
 
-    if (foundUser) {
-        if (!foundUser.scores) {
-            foundUser.scores = { memory: 0, run: 0 };
-        }
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(foundUser));
+    const user = users[userIndex];
+
+    if (user.blockUntil && Date.now() < user.blockUntil) {//check if still blocked
+        const remainingMinutes = Math.ceil((user.blockUntil - Date.now()) / 60000);
+        alert(`Account is blocked! Try again in ${remainingMinutes} minutes.`);
+        return false;
+    }
+
+    if (user.password === password) {
+        // Reset counters because the user logged in successfully
+        user.loginAttempts = 0;
+        user.blockUntil = null;
+        
+        // Update the clean user in the database
+        users[userIndex] = user;
+        saveUsers(users);
+
+        if (!user.scores) user.scores = { memory: 0, run: 0 };
+
+        // Login
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
         window.location.href = '../../dashboard.html';
         return true;
+
     } else {
-        alert("Incorrect username or password");
+        user.loginAttempts = (user.loginAttempts || 0) + 1;
+        
+        let message = "Incorrect password.";
+
+        // Check if threshold exceeded
+        if (user.loginAttempts >= MAX_ATTEMPTS) {
+            user.blockUntil = Date.now() + BLOCK_TIME_MS; // blocked
+            message = `Too many failed attempts. You are blocked for 30 seconds.`;
+        } else {
+            message += ` You have ${MAX_ATTEMPTS - user.loginAttempts} attempts left.`;
+        }
+
+        // Must save the updated user (with the failed attempts counter) in LocalStorage
+        users[userIndex] = user;
+        saveUsers(users);
+        
+        alert(message);
         return false;
     }
 }
@@ -57,28 +103,22 @@ function getCurrentUser() {
 
 function updateScore(gameName, newScore) {
     const currentUser = getCurrentUser();
-    
     if (!currentUser) return;
 
-    if (!currentUser.scores) {
-        currentUser.scores = {};
-    }
+    if (!currentUser.scores) currentUser.scores = {};
 
     const currentBest = currentUser.scores[gameName] || 0;
 
     if (newScore > currentBest) {
-        
-        //update score in memory and local storage
         currentUser.scores[gameName] = newScore;
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser));
 
-        //update score in users list
         const users = getAllUsers();
         const userIndex = users.findIndex(u => u.username === currentUser.username);
         
         if (userIndex !== -1) {
             users[userIndex] = currentUser;
-            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            saveUsers(users);
         }
     }
 }

@@ -1,43 +1,41 @@
 // js/sign.js
 
 function toggleForms() {
-    const loginBox = document.getElementById('login-box');
-    const registerBox = document.getElementById('register-box');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
 
-    loginBox.classList.toggle('hidden');
-    registerBox.classList.toggle('hidden');
+    loginForm.classList.toggle('hidden');
+    registerForm.classList.toggle('hidden');
+    
+    // Clear input fields when toggling
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('newUsername').value = '';
+    document.getElementById('newPassword').value = '';
 }
 
+//for login
+function handleLogin(event) {
+    event.preventDefault();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const signUpBtn = document.getElementById('signUpButton');
-    if(signUpBtn) {
-        signUpBtn.addEventListener('click', () => {
-            const user = document.getElementById('newUsername').value;
-            const pass = document.getElementById('newPassword').value;
+    const user = document.getElementById('loginUsername').value;
+    const pass = document.getElementById('loginPassword').value;
+    
+    // Call the function from userManager.js
+    loginUser(user, pass);
+}
 
-            if(user && pass) {
-                const success = registerUser(user, pass);
-                if(success) {
-                    alert("Successfully registered! Connecting...");
-                }
-            } else {
-                alert("Please fill in all fields.");
-            }
-        });
+//for register
+function handleRegister(event) {
+    event.preventDefault(); // prevent form submission
+
+    const user = document.getElementById('newUsername').value;
+    const pass = document.getElementById('newPassword').value;
+
+    // Call the function from userManager.js
+    const success = registerUser(user, pass);
+    
+    if(success) {
+        alert("Successfully registered! Logging you in...");
     }
-
-    const loginBtn = document.getElementById('loginButton');
-    if(loginBtn) {
-        loginBtn.addEventListener('click', () => {
-            const user = document.getElementById('loginUsername').value;
-            const pass = document.getElementById('loginPassword').value;
-            
-            if(user && pass) {
-                loginUser(user, pass);
-            } else {
-                alert("Please enter username and password");
-            }
-        });
-    }
-});
+}

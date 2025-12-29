@@ -2,20 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Campus Run - Login</title>
-  <link rel="stylesheet" href="css/login.css">
+  <title>Login</title>
+  <link rel="stylesheet" href="css/sign.css">
   <link rel="stylesheet" href="../../css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<a href="sign.html" id="newUserButton">New here? Sign up</a>
-  <div class="login-container">
-    <h1>LOGIN</h1>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button id="loginButton" >Login</button>
+
+  <div class="main-wrapper">
+      
+      <form id="login-form" class="login-container" onsubmit="handleLogin(event)">
+        <h1>LOGIN</h1>
+        <input type="text" id="loginUsername" placeholder="Your Username" required>
+        <input type="password" id="loginPassword" placeholder="Your Password" required>
+        
+        <button type="submit" id="loginButton" class="btn-main">Login</button>
+        
+        <div class="toggle-link">
+            Don't have an account? 
+            <a href="#" onclick="toggleForms()">Sign Up Here</a>
+        </div>
+      </form>
+
+      <form id="register-form" class="login-container hidden" onsubmit="handleRegister(event)">
+        <h1>SIGN UP</h1>
+        <input type="text" id="newUsername" placeholder="Choose Username" required>
+        <input type="password" id="newPassword" placeholder="Choose Password" required>
+        
+        <button type="submit" id="signUpButton" class="btn-main">Create Account</button>
+        
+        <div class="toggle-link">
+            Already have an account? 
+            <a href="#" onclick="toggleForms()">Login Here</a>
+        </div>
+      </form>
+
   </div>
 
-  <script src="js/login.js"></script>
+  <script src="../../js/userManager.js"></script>
+  <script src="js/sign.js"></script>
 </body>
 </html>
